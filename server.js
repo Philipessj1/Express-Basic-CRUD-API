@@ -5,6 +5,11 @@ const app = express();
 
 const PORT = process.env.PORT;
 
+// Body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Posts routes
 app.use('/api/posts', posts);
 
 app.listen(PORT, () => {
