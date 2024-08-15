@@ -21,20 +21,18 @@ let posts = [
 const handleLimit = (req, res, data) => {
 
     const limit = parseInt(req.query.limit);
-    if (!isNaN(limit) && limit > 0) {
-        
-        return data.slice(0, limit);
-    } else {
 
-        return data;
-    }
+    if (!isNaN(limit) && limit > 0) return data.slice(0, limit);
+
+    return data;
 }
 
 // Get all the posts
 
 app.get('/api/posts', (req, res) => {
 
-    const data = handleLimit(req, res, posts);
+    let data = posts;
+    if (req.query.limit) data = handleLimit(req, res, posts);
 
     res.json(data);
 });
@@ -44,7 +42,16 @@ app.get('/api/posts', (req, res) => {
 app.get('/api/posts/:id', (req, res) => {
 
     const id = parseInt(req.params.id);
-    res.json(posts.filter(post => post.id === id));
+    const post = posts.find(post => post.id === id);
+
+    if (!post) {
+
+        return res
+            .status(404)
+            .json({ message: `The post with id of ${id} not found!` });
+    }
+
+    res.status(200).json(post);
 });
 
 app.listen(PORT, () => {
