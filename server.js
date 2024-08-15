@@ -18,11 +18,34 @@ let posts = [
     { id: 3, title: 'Post Three' },
 ];
 
+const handleLimit = (req, res, data) => {
+
+    const limit = parseInt(req.query.limit);
+    if (!isNaN(limit) && limit > 0) {
+        
+        return data.slice(0, limit);
+    } else {
+
+        return data;
+    }
+}
+
+// Get all the posts
+
 app.get('/api/posts', (req, res) => {
 
-    res.json(posts);
-})
+    const data = handleLimit(req, res, posts);
 
+    res.json(data);
+});
+
+// Get single post by id
+
+app.get('/api/posts/:id', (req, res) => {
+
+    const id = parseInt(req.params.id);
+    res.json(posts.filter(post => post.id === id));
+});
 
 app.listen(PORT, () => {
 
