@@ -1,5 +1,5 @@
 import express from 'express';
-import { handleLimit } from '../utils/index.js';
+import { handleLimit, handleFindPostById } from '../utils/index.js';
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
 
     const id = parseInt(req.params.id);
-    const post = posts.find(post => post.id === id);
+    const post = handleFindPostById(posts, id);
 
     if (!post) {
 
@@ -49,6 +49,20 @@ router.post('/', (req, res) => {
     }
     posts.push(newPost);
     res.status(201).json(posts);
+});
+
+// PUT Routes
+router.put('/:id', (req, res) => {
+
+    const id = parseInt(req.params.id);
+    const post = handleFindPostById(posts, id);
+    if (!post) {
+        return res
+            .status(404)
+            .json({ message: 'Post not found!' })
+    }
+    post.title = req.body.title;
+    res.status(200).json(posts);
 });
 
 export default router;

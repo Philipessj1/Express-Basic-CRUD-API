@@ -18,8 +18,13 @@ const handleLimit = (req, res, data) => {
     return data;
 }
 
+const handleFindPostById = (posts, id) => {
+    return posts.find(post => post.id === id);
+}
+
 export {
     __filename,
     __dirname,
-    handleLimit
+    handleLimit,
+    handleFindPostById
 }
