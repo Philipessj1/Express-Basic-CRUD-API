@@ -2,6 +2,7 @@ import express from 'express';
 import posts from './routes/posts.js';
 import logger from './middleware/logger.js';
 import handleError from './middleware/error.js';
+import handleNotFound from './middleware/notfound.js';
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.use(logger);
 
 // Posts routes
 app.use('/api/posts', posts);
+
+app.use(handleNotFound);
 
 // Error Handler
 app.use(handleError);
