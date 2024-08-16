@@ -2,6 +2,7 @@ import express from 'express';
 import posts from './routes/posts.js';
 import logger from './middleware/logger.js';
 import handleError from './middleware/error.js';
+import handleNotFound from './middleware/notfound.js';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(logger);
 app.use('/api/posts', posts);
 
 // Error Handler
+app.use(handleNotFound);
 app.use(handleError);
 
 // Port Listener
