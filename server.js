@@ -18,6 +18,8 @@ app.use(logger);
 // Posts routes
 app.use('/api/posts', posts);
 
+app.use(handleNotFound);
+
 // Error Handler
 app.use(handleNotFound);
 app.use(handleError);
