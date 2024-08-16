@@ -1,5 +1,6 @@
 import express from 'express';
 import posts from './routes/posts.js';
+import logger from './middleware/logger.js';
 
 const app = express();
 
@@ -8,6 +9,10 @@ const PORT = process.env.PORT;
 // Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Logger Middleware
+
+app.use(logger);
 
 // Posts routes
 app.use('/api/posts', posts);
