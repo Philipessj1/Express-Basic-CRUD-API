@@ -43,7 +43,7 @@ const createPost = (req, res, next) => {
         title: req.body.title
     };
     if (!newPost.title) {
-
+        
         const error = new Error(`Please include a title!`);
         error.status = 400;
         return next(error);
