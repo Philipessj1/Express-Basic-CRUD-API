@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 
 // Body parser middleware
 app.use(express.json());
